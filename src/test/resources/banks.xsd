@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="banks"
+        xmlns:tns="banks"
+        elementFormDefault="qualified">
+    <element name="banks">
+        <complexType>
+            <sequence>
+                <element name="bank"
+                         type="tns:Bank"
+                         minOccurs="1"
+                         maxOccurs="5"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Bank">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="country" type="string"/>
+            <element name="type" type="tns:Type"/>
+            <element name="depositor"
+                     type="tns:Depositor"
+                     minOccurs="1"
+                     maxOccurs="unbounded"/>
+        </sequence>
+        <attribute name="id" type="tns:Id" use="required"/>
+    </complexType>
+    <simpleType name="Id">
+        <restriction base="ID">
+            <pattern value="([a-zA-Z])[a-zA-Z0-9]{7,19}"/>
+        </restriction>
+    </simpleType>
+    <complexType name="Depositor">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="amount" type="positiveInteger"/>
+            <element name="profitability" type="positiveInteger"/>
+            <element name="term" type="positiveInteger"/>
+        </sequence>
+    </complexType>
+    <simpleType name="Type">
+        <restriction base="string">
+            <enumeration value="term">
+            </enumeration>
+            <enumeration value="cumulative">
+            </enumeration>
+            <enumeration value="ez">
+            </enumeration>
+        </restriction>
+    </simpleType>
+</schema>
